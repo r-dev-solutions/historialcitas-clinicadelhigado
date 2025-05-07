@@ -8,7 +8,7 @@ const appointmentSchema = new mongoose.Schema({
   Doctor: { type: String, required: true },
   Estado: { 
     type: String, 
-    enum: ['Completada', 'Cancelada', 'No Asistio', 'ReAgendada'], 
+    enum: ['Completada', 'Cancelada', 'No Asistio', 'ReAgendada', 'Agendada'], 
     required: true 
   },
   Precio: { type: Number, required: true }
