@@ -1,0 +1,23 @@
+# ClinicadelHigado Appointments API Documentation
+
+---
+
+## Overview
+
+This API allows you to manage medical appointments for the ClinicadelHigado system. It supports creating, retrieving, updating, and deleting appointment records. All endpoints are protected by a static Bearer token for authentication.
+
+---
+
+## Environment Variables
+
+The following environment variables must be set in your `.env` file:
+
+- **BEARER_TOKEN**: The static token required for API access.
+- **PORT**: The port on which the server runs.
+- **MONGO_URI**: The MongoDB connection string.
+
+---
+
+## Authentication
+
+All endpoints require the following HTTP header:
