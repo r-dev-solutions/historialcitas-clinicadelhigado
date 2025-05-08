@@ -1,16 +1,19 @@
-# ClinicadelHigado Appointments API Documentation
+Here’s an updated and organized api_documentation.txt including the new Pacientes API, with all endpoints and example requests for both appointments and patients:
+
+```plaintext
+# ClinicadelHigado Appointments & Pacientes API Documentation
 
 ---
 
 ## Overview
 
-This API allows you to manage medical appointments for the ClinicadelHigado system. It supports creating, retrieving, updating, and deleting appointment records. All endpoints are protected by a static Bearer token for authentication.
+This API allows you to manage medical appointments and patient records for the ClinicadelHigado system. It supports creating, retrieving, updating, and deleting both appointment and patient records. All endpoints are protected by a static Bearer token for authentication.
 
 ---
 
 ## Environment Variables
 
-The following environment variables must be set in your `.env` file:
+Set the following in your `.env` file:
 
 - **BEARER_TOKEN**: The static token required for API access.
 - **PORT**: The port on which the server runs.
@@ -21,3 +24,177 @@ The following environment variables must be set in your `.env` file:
 ## Authentication
 
 All endpoints require the following HTTP header:
+
+ ```
+```
+
+Authorization: Bearer <BEARER_TOKEN>
+
+```plaintext
+
+Replace `<BEARER_TOKEN>` with the value from your `.env` file.
+
+---
+
+## API Base URL
+
+ ```
+```
+
+https://historialcitas-clinicadelhigado.onrender.com
+
+```plaintext
+
+---
+
+## Endpoints
+
+### Appointments
+
+#### 1. Create Appointment
+
+- **Method:** POST
+- **URL:** `/appointments`
+- **Headers:**
+  - Content-Type: application/json
+  - Authorization: Bearer <BEARER_TOKEN>
+- **Body Example:**
+  ```json
+  {
+    "Pacient": "Jane Doe",
+    "Fecha": "2024-06-10",
+    "Hora": "09:30",
+    "Tipo": "Consulta",
+    "Doctor": "Dr. Smith",
+    "Estado": "Completada",
+    "Precio": 120,
+    "Comentarios": "Paciente llegó a tiempo",
+    "Canal": "Facebook"
+  }
+ ```
+```
+
+- Success Response: 201, Appointment object 2. Get All Appointments
+- Method: GET
+- URL: /appointments
+- Headers: Authorization: Bearer <BEARER_TOKEN>
+- Success Response: 200, Array of appointment objects 3. Get Appointment by ID
+- Method: GET
+- URL: /appointments/:id
+- Headers: Authorization: Bearer <BEARER_TOKEN>
+- Success Response: 200, Appointment object
+- Error Response: 404, { "error": "Not found" } 4. Update Appointment by ID
+- Method: PUT
+- URL: /appointments/:id
+- Headers: Content-Type: application/json, Authorization: Bearer <BEARER_TOKEN>
+- Body Example:
+  ```json
+  { "Estado": "Cancelada" }
+   ```
+- Success Response: 200, Updated appointment object
+- Error Response: 404, { "error": "Not found" } 5. Delete Appointment by ID
+- Method: DELETE
+- URL: /appointments/:id
+- Headers: Authorization: Bearer <BEARER_TOKEN>
+- Success Response: 200, { "message": "Deleted" }
+- Error Response: 404, { "error": "Not found" }
+### Pacientes 1. Create Paciente
+- Method: POST
+- URL: /pacientes
+- Headers:
+  - Content-Type: application/json
+  - Authorization: Bearer <BEARER_TOKEN>
+- Body Example:
+  ```json
+  {
+    "nombre": "Carlos Perez",
+    "edad": 45,
+    "telefono": "555-1234",
+    "email": "carlos@example.com",
+    "diagnostico": "Hepatitis",
+    "estado": "Activo",
+    "recomendaciones": "Revisar cada 6 meses"
+  }
+   ```
+  ```
+- Success Response: 201, Paciente object 2. Get All Pacientes
+- Method: GET
+- URL: /pacientes
+- Headers: Authorization: Bearer <BEARER_TOKEN>
+- Success Response: 200, Array of paciente objects 3. Get Paciente by ID
+- Method: GET
+- URL: /pacientes/:id
+- Headers: Authorization: Bearer <BEARER_TOKEN>
+- Success Response: 200, Paciente object
+- Error Response: 404, { "error": "Not found" } 4. Update Paciente by ID
+- Method: PUT
+- URL: /pacientes/:id
+- Headers: Content-Type: application/json, Authorization: Bearer <BEARER_TOKEN>
+- Body Example:
+  ```json
+  { "estado": "Inactivo" }
+   ```
+- Success Response: 200, Updated paciente object
+- Error Response: 404, { "error": "Not found" } 5. Delete Paciente by ID
+- Method: DELETE
+- URL: /pacientes/:id
+- Headers: Authorization: Bearer <BEARER_TOKEN>
+- Success Response: 200, { "message": "Deleted" }
+- Error Response: 404, { "error": "Not found" }
+## Example Objects
+### Appointment
+```json
+{
+  "_id": "60c72b2f9b1e8a001c8d4567",
+  "Pacient": "Jane Doe",
+  "Fecha": "2024-06-10T00:00:00.000Z",
+  "Hora": "09:30",
+  "Tipo": "Consulta",
+  "Doctor": "Dr. Smith",
+  "Estado": "Completada",
+  "Precio": 120,
+  "Comentarios": "Paciente llegó a tiempo",
+  "Canal": "Facebook",
+  "__v": 0
+}
+ ```
+```
+
+### Paciente
+```json
+{
+  "_id": "60c72b2f9b1e8a001c8d4568",
+  "nombre": "Carlos Perez",
+  "edad": 45,
+  "telefono": "555-1234",
+  "email": "carlos@example.com",
+  "diagnostico": "Hepatitis",
+  "estado": "Activo",
+  "recomendaciones": "Revisar cada 6 meses",
+  "fecha_creacion": "2024-06-10T12:00:00.000Z",
+  "__v": 0
+}
+ ```
+```
+
+## Error Handling
+- All errors return a JSON object with an error field describing the issue.
+- Common error codes: 400 (Bad Request), 404 (Not Found), 500 (Server Error).
+## CORS
+CORS is enabled for all origins, allowing requests from any client.
+
+## Usage Notes
+- All endpoints require authentication via Bearer token.
+- Dates must be in ISO 8601 format (YYYY-MM-DD).
+- Allowed values for Estado (appointments): "Completada", "Cancelada", "No Asistio", "ReAgendada", "Agendada".
+- Allowed values for estado (pacientes): "Activo", "Inactivo".
+- Allowed values for Canal (appointments): "Facebook", "Recomendacion", "Instagram", "Cliente Previo", "Otro".
+- The API is designed for use in a clinical appointment and patient management context.
+- Ensure your MongoDB instance is running and accessible via the URI in .env .
+This documentation provides all the details your frontend needs to interact with the API at https://historialcitas-clinicadelhigado.onrender.com .
+
+```plaintext
+
+Let me know if you want to add more details or examples!
+ ```
+```
