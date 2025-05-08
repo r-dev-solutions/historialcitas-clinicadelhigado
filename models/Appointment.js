@@ -11,7 +11,8 @@ const appointmentSchema = new mongoose.Schema({
     enum: ['Completada', 'Cancelada', 'No Asistio', 'ReAgendada', 'Agendada'], 
     required: true 
   },
-  Precio: { type: Number, required: true }
+  Precio: { type: Number, required: true },
+  Comentarios: { type: String } // New field for comments
 });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);
